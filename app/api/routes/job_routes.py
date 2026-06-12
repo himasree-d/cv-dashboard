@@ -84,6 +84,32 @@ def get_job_metadata(
 
     with open(metadata_file) as f:
         return json.load(f)
+
+@router.get("/{job_id}/metadata/{frame_index}")
+def get_frame_metadata(
+    job_id: int,
+    frame_index: int,
+    db: Session = Depends(get_db)
+):
+    job = JobRepository.get_job(db, job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    metadata_file = (
+        Path("data/results/metadata")
+        / f"{Path(job.filename).stem}.json"
+    )
+    if not metadata_file.exists():
+        raise HTTPException(status_code=404, detail="Metadata not found")
+
+    with open(metadata_file) as f:
+        data = json.load(f)
+
+    frames = data.get("frames", [])
+    if frame_index < 0 or frame_index >= len(frames):
+        raise HTTPException(status_code=404, detail=f"Frame {frame_index} not found")
+
+    return frames[frame_index]
 @router.get(
     "",
     response_model=List[JobResponse]
@@ -92,6 +118,23 @@ def get_all_jobs(
     db: Session = Depends(get_db)
 ):
     return JobRepository.list_jobs(db)
+
+@router.get(
+    "/{job_id}",
+    response_model=JobResponse
+)
+def get_job_by_id(
+    job_id: int,
+    db: Session = Depends(get_db)
+):
+    job = JobRepository.get_job(db, job_id)
+    if not job:
+        raise HTTPException(
+            status_code=404,
+            detail="Job not found"
+        )
+    return job
+
 @router.patch(
     "/{job_id}/status",
     response_model=JobResponse
