@@ -25,10 +25,10 @@ A production-style full-stack computer vision application. Upload images or vide
          │                  │       ├── predictions/          │
          ▼                  │       ├── videos/               │
 ┌────────────────────┐      │       └── metadata/             │
-│  Celery Worker     │──────┘                                 │
+│  Celery Worker     └──────┘                                 │
 │  YOLOv8 / YOLOv8-Seg                                        │
 │  Inference + FFmpeg re-encode                               │
-└────────────────────┘
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## Supported Models
