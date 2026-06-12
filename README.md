@@ -13,7 +13,7 @@ A production-style full-stack computer vision application. Upload images or vide
                         │ HTTP (REST)
                         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                FastAPI Backend  :8000                        │
+│                FastAPI Backend  :8000                       │
 │   POST /upload  ·  GET /jobs/*  ·  GET /models  ·  /health  │
 └──────────┬────────────────────────────┬────────────────────-┘
            │ Enqueue task               │ Read results
@@ -22,8 +22,8 @@ A production-style full-stack computer vision application. Upload images or vide
 │  Redis :6379       │      │  Local Volume  /data/           │
 │  (Celery broker)   │      │  ├── uploads/                   │
 └────────┬───────────┘      │  └── results/                   │
-         │                  │       ├── predictions/           │
-         ▼                  │       ├── videos/                │
+         │                  │       ├── predictions/          │
+         ▼                  │       ├── videos/               │
 ┌────────────────────┐      │       └── metadata/             │
 │  Celery Worker     │──────┘                                 │
 │  YOLOv8 / YOLOv8-Seg                                        │
