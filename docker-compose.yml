@@ -19,7 +19,7 @@ services:
   # ── Backend (FastAPI) ─────────────────────────────────────────────────────────
   backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     container_name: cv_backend
     restart: unless-stopped
@@ -46,7 +46,7 @@ services:
   # ── Celery Worker ─────────────────────────────────────────────────────────────
   worker:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     container_name: cv_worker
     restart: unless-stopped

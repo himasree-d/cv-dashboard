@@ -22,7 +22,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application source
 COPY app/ ./app/
 COPY celery_app.py .
-COPY .env.example .env
 
 # Create data directories
 RUN mkdir -p data/uploads data/results/predictions data/results/metadata data/results/videos
